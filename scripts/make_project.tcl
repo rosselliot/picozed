@@ -54,3 +54,6 @@ make_wrapper -files [get_files $bd_name] -top -import
 # Add constraints file
 set constr_file "$top_dir/$board/fmc_dio_$board.xdc"
 add_files -fileset constrs_1 -norecurse $constr_file
+
+# Close project, in case this file has been sourced
+close_project
