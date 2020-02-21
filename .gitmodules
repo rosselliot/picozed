@@ -1,0 +1,3 @@
+[submodule "hdl-ip-repo"]
+	path = hdl-ip-repo
+	url = ../hdl-ip-repo.git
