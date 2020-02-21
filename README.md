@@ -22,5 +22,6 @@ Default target is 'all', so to make a bitstream for the PicoZed board, just run:
 
 `make project=picozed`
 
+Generated bitstream file will be in *output/<board_name>/<board_name>_dio_fmc.bit*
 
 
