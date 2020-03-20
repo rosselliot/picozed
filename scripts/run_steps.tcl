@@ -11,13 +11,10 @@
 ###################################################################
 
 proc run_step { step } {
-    if { [get_property PROGRESS [get_runs $step ]] != "100%" } {
-        puts "Running $step ..."
-        launch_runs -jobs 4 $step
-        wait_on_run -timeout 60 $step
-    } else {
-        puts "Step $step already completed. Skipping..."
-    }
+    puts "Running $step ..."
+    reset_run $step
+    launch_runs -jobs 4 $step
+    wait_on_run -timeout 60 $step
 }
 
 # Parse input arguments
@@ -59,12 +56,9 @@ switch $step {
         set runsynth  1 
     }
     impl { 
-        set runsynth  1
         set runimpl   1 
     }
     bitstream { 
-        set runsynth  1 
-        set runimpl   1
         set runbitgen 1
     }
     default     { 

@@ -36,7 +36,7 @@ set projects_dir $top_dir/project
 
 # Create vivado project in subdirectory
 set prj_dir ./output/$project/vivado_prj
-create_project -part $target ${board}_${project} $prj_dir 
+create_project -force -part $target ${board}_${project} $prj_dir 
 set_property target_language VHDL [current_project]
 
 # Add IP repository

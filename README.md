@@ -10,7 +10,7 @@ make board=<board_name> project=<project_name> <stage>
 
 where, 
     <board_name>   := picozed
-    <project_name> := fmc-dio-5ch-ttl
+    <project_name> := {base, fmc-dio-5ch-ttl, ethercat-slave}
     <stage>        := project     - Create the Vivado GUI project 
                       synth       - Run Synthesis on the design  
                       impl        - Run Implementation on the design  
