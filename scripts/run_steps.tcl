@@ -24,13 +24,15 @@ proc run_step { step } {
 if { $argc > 0 } {
     set board [lindex $argv 0]
     if { $argc > 1 } {
-        set prj_file [lindex $argv 1]
+        set prj_file [lindex $argv 2]
         puts "Setting project file to $prj_file"
-        if { $argc < 3 } {
+        set project [lindex $argv 1]
+        puts "Setting project to $project"
+        if { $argc < 4 } {
             set step "synth"
             puts "No step string provided. Setting to \"$step\""
         } else {
-            set step [lindex $argv 2]
+            set step [lindex $argv 3]
             puts "Setting step to $step"
         }
     } else {
@@ -40,7 +42,7 @@ if { $argc > 0 } {
 }
 set scripts_dir [file dirname [info script]]
 set top_dir $scripts_dir/..
-set outdir $top_dir/output/$board
+set outdir $top_dir/output/$project
 
 # Check for project
 if { [file exists $prj_file] == 0 } {
@@ -77,12 +79,16 @@ open_project $prj_file
 
 if { $runsynth == 1 } {
     run_step {synth_1}
+    open_run synth_1
+    write_checkpoint -force -noxdef $outdir/${board}_${project}.dcp
 } 
 if { $runimpl == 1 } {
     run_step {impl_1}
+    open_run impl_1
+    write_checkpoint -force -noxdef $outdir/${board}_${project}_routed.dcp
 } 
 if { $runbitgen == 1 } {
     puts "Running bitstream generation..."
     open_run impl_1
-    write_bitstream -force $outdir/${board}_dio_fmc.bit
+    write_bitstream -force $outdir/${board}_${project}.bit
 }

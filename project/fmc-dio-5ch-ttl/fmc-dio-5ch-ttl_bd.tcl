@@ -130,7 +130,8 @@ proc create_hier_cell_PS7 { parentCell nameHier board } {
   # Create instance: rst_ps7_0_100M, and set properties
   set rst_ps7_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps7_0_100M ]
   # Source board-specific PS7 tcl file
-  source $board/zynq_ps_config.tcl
+  puts [pwd] 
+  source project/common/zynq_ps_config.tcl
 
   # Create interface connections
   connect_bd_intf_net -intf_net processing_system7_0_DDR [get_bd_intf_pins DDR] [get_bd_intf_pins processing_system7_0/DDR]

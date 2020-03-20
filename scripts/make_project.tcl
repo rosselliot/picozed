@@ -13,6 +13,12 @@
 if { $argc > 0 } {
     set board [lindex $argv 0]
     puts "Setting board to $board"
+    if { $argc > 1 } {
+        set project [lindex $argv 1]
+        puts "Setting project to $project"
+    } else {
+        puts "No project provided. Using default (base)"
+    }
 } else {
     puts "No board provided. Using default (picozed)"
     set board "picozed"
@@ -26,23 +32,26 @@ puts "Setting target device to $target"
 
 set scripts_dir [file dirname [info script]]
 set top_dir $scripts_dir/..
+set projects_dir $top_dir/project
 
 # Create vivado project in subdirectory
-set prj_dir ./output/$board/vivado_prj
-create_project -part $target fmc-dio-5ch-ttl_$board $prj_dir 
+set prj_dir ./output/$project/vivado_prj
+create_project -part $target ${board}_${project} $prj_dir 
 set_property target_language VHDL [current_project]
 
 # Add IP repository
-set_property ip_repo_paths $top_dir/hdl-ip-repo [current_project]
+set_property ip_repo_paths ${top_dir}/hdl-ip-repo [current_project]
 update_ip_catalog
 
 # Create block design
-set bd_name "fmc_dio.bd"
+# BD name cannot contatin hypens ("-"), so replace with underscores
+regsub -all {\-} $project "_" bd_name
+set bd_name "${bd_name}.bd"
 create_bd_design $bd_name 
 
 # Populate block design from sourced tcl file
 set ::board_name $board
-source $scripts_dir/fmc-dio-5ch-ttl_bd.tcl
+source $projects_dir/$project/${project}_bd.tcl
 
 # Validate the block design
 validate_bd_design
@@ -52,5 +61,8 @@ save_bd_design
 make_wrapper -files [get_files $bd_name] -top -import
 
 # Add constraints file
-set constr_file "$top_dir/$board/fmc_dio_$board.xdc"
+set constr_file "${top_dir}/project/${project}/${project}_${board}.xdc"
 add_files -fileset constrs_1 -norecurse $constr_file
+
+# Close project, in case this file has been sourced
+close_project
