@@ -1,7 +1,7 @@
-Repository to hold source files for building FPGA projects using the FMC Digital-IO 5 channel TTL board.
+Repository to hold source files for building FPGA projects using the PicoZed / FPGAIOC carrier board.
 
 To clone:
-`git clone --recurse-submodules git@gitlab.esss.lu.se:icshwi/fmc-dio-5ch-ttl.git`
+`git clone --recurse-submodules git@gitlab.esss.lu.se:icshwi/picozed.git`
 
 To build:
 
@@ -21,6 +21,6 @@ where,
 
 Default target is 'all', so to make a bitstream for the PicoZed board, just run:
 
-`make board=picozed project=fmc-dio-5ch-ttl`
+`make board=picozed project=base`
 
 Generated bitstream file will be in *output/<project_name>/<board_name>_<project_name>.bit*

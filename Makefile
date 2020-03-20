@@ -38,7 +38,7 @@ $(project_file): $(bd_file) $(constr_file)
 	-@echo -e "\033[1;92mRunning project creation: \033[0m"
 	vivado -mode batch -source $(SCRIPTS_DIR)/make_project.tcl -tclargs $(board) $(project)
 
-$(project_dir)/$(project_name).dcp: $(project_file)
+$(project_dir)/$(project_name).dcp:
 	-@echo -e "\033[1;92mRunning synthesis: \033[0m"
 	vivado -mode batch -source $(SCRIPTS_DIR)/run_steps.tcl -tclargs $(board) $(project) $(project_file) synth
 
