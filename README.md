@@ -6,22 +6,21 @@ To clone:
 To build:
 
 ```
-make project=<board_name> <stage>
+make board=<board_name> project=<project_name> <stage>
 
 where, 
-    <board_name> := picozed
-    <stage>      := project     - Create the Vivado GUI project 
-                    synth       - Run Synthesis on the design  
-                    impl        - Run Implementation on the design  
-                    bitstream   - Generate the bitstream
-                    all         - All of the above
+    <board_name>   := picozed
+    <project_name> := fmc-dio-5ch-ttl
+    <stage>        := project     - Create the Vivado GUI project 
+                      synth       - Run Synthesis on the design  
+                      impl        - Run Implementation on the design  
+                      bitstream   - Generate the bitstream
+                      all         - All of the above
                     
 ```
 
 Default target is 'all', so to make a bitstream for the PicoZed board, just run:
 
-`make project=picozed`
+`make board=picozed project=fmc-dio-5ch-ttl`
 
-Generated bitstream file will be in *output/<board_name>/<board_name>_dio_fmc.bit*
-
-
+Generated bitstream file will be in *output/<project_name>/<board_name>_<project_name>.bit*
