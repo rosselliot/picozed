@@ -19,6 +19,8 @@ where,
                     
 ```
 
+*NOTE:* ethercat-slave project requires a node-locked IP license from Beckhoff.
+
 Default target is 'all', so to make a bitstream for the PicoZed board, just run:
 
 `make board=picozed project=base`
